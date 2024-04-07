@@ -19,10 +19,12 @@
 	/** The current guess */
 	$: currentGuess = data.guesses[i] || '';
 
-	/** Whether the current guess can be submitted */
+	let maxedOut = false;
 	const minLength = 1;
 	const maxLength = 10;
+	/** Whether the current guess can be submitted */
 	$: submittable = currentGuess.length >= minLength && currentGuess.length <= maxLength;
+	$: maxedOut = currentGuess.length >= maxLength;
 
 	/**
 	 * A map of classnames for all letters that have been guessed,
@@ -174,7 +176,7 @@
 								on:click|preventDefault={update}
 								data-key={letter}
 								class={classnames[letter]}
-								disabled={submittable}
+								disabled={maxedOut}
 								formaction="?/update"
 								name="key"
 								value={letter}
