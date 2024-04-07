@@ -11,7 +11,15 @@
 	export let form;
 
 	/** Whether or not the user has won */
-	$: won = data.answers.at(-1) === 'xxxxx';
+	let won = false;
+	
+	$: {
+		const lastAnswer = data.answers.at(-1);
+
+		const correctAnswerLength = data.answerLength;
+
+		won = lastAnswer?.startsWith('x'.repeat(correctAnswerLength)) ?? false;
+	}
 
 	/** The index of the current guess */
 	$: i = won ? -1 : data.answers.length;

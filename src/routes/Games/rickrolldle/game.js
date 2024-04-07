@@ -19,6 +19,10 @@ export class Game {
 		}
 
 		this.answer = words[this.index];
+		// this.answer = 'never' // DEBUG
+		this.answerLength = this.answer.length;
+
+		// console.log(this.answer); // DEBUG
 	}
 
 	/**
