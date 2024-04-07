@@ -28,7 +28,7 @@
 	$: currentGuess = data.guesses[i] || '';
 
 	let maxedOut = false;
-	const minLength = 1;
+	const minLength = 2;
 	const maxLength = 10;
 	/** Whether the current guess can be submitted */
 	$: submittable = currentGuess.length >= minLength && currentGuess.length <= maxLength;
