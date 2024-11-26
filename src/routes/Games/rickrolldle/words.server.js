@@ -12,7 +12,6 @@ export const words = [
     "and",
     "so",
     "do",
-    "a",
     "full",
     "what",
     "im",
