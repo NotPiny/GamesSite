@@ -38,23 +38,25 @@ export class Game {
 
 		this.guesses[this.answers.length] = word;
 
-		const maxLength = 10;
-
 		const available = Array.from(this.answer);
-		const answer = Array(maxLength).fill('_');
+		const answer = Array(this.answerLength).fill('_');
 
 		// first, find exact matches
-		for (let i = 0; i < maxLength; i += 1) {
+		for (let i = 0; i < this.answerLength; i += 1) {
 			if (letters[i] === available[i]) {
 				answer[i] = 'x';
 				available[i] = ' ';
+			}
+			// P1ff5
+			if (letters.length !== this.answerLength) {
+				return false;
 			}
 		}
 
 		// then find close matches (this has to happen
 		// in a second step, otherwise an early close
 		// match can prevent a later exact match)
-		for (let i = 0; i < maxLength; i += 1) {
+		for (let i = 0; i < this.answerLength; i += 1) {
 			if (answer[i] === '_') {
 				const index = available.indexOf(letters[i]);
 				if (index !== -1) {
