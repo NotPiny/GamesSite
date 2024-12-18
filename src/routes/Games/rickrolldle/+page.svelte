@@ -3,6 +3,7 @@
 	import { enhance } from '$app/forms';
 
 	import { reduced_motion } from './reduced-motion';
+    import { browser } from '$app/environment';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -12,6 +13,17 @@
 
 	/** Whether or not the user has won */
 	let won = false;
+
+	/** The current score */
+	let score = 0;
+
+	/** Whether the answer length is visible */
+	let lengthVisible = false;
+
+	/** A overview of how hard it would be to guess the correct answer */
+	let difficulty = 100;
+
+	let scoreLastCalc = 0;
 	
 	$: {
 		const lastAnswer = data.answers.at(-1);
@@ -19,6 +31,15 @@
 		const correctAnswerLength = data.answerLength;
 
 		won = lastAnswer?.startsWith('x'.repeat(correctAnswerLength)) ?? false;
+
+		if (won && scoreLastCalc < Date.now() - 10_000) {
+			score += ((correctAnswerLength * 10 - (data.guesses.filter(g => g != '').length * 3) + (lengthVisible ? -5 : 0)) * 2) * (difficulty < 1 ? difficulty : difficulty / 2);
+			scoreLastCalc = Date.now();
+
+			if (score == 69) {
+				console.log('nice');
+			}
+		}
 	}
 
 	/** The index of the current guess */
@@ -57,6 +78,27 @@
 
 			for (let i = 0; i < maxLength; i += 1) {
 				const letter = guess[i];
+
+				console.debug(`Starting difficulty: ${difficulty}`);
+				switch (answer[i]) {
+					case 'x':
+						difficulty -= 5;
+						classnames[letter] = 'exact';
+						description[letter] = 'correct';
+						break;
+					case 'c':
+						difficulty -= 3;
+						break;
+					case '_':
+						difficulty -= 1;
+						break;
+				}
+
+				if (difficulty < 1) {
+					difficulty = 1;
+				}
+
+				console.debug(`Ending difficulty: ${difficulty}`);
 
 				if (answer[i] === 'x') {
 					classnames[letter] = 'exact';
@@ -160,7 +202,7 @@
 			{#if !won && data.answer}
 				<p>the answer was "{data.answer}"</p>
 			{/if}
-			<button data-key="enter" class="restart selected" formaction="?/restart">
+			<button data-key="enter" class="restart selected" formaction="?/restart" on:click={() => { lengthVisible = false; difficulty = 100; }}>
 				{won ? 'you won :)' : `game over :(`} play again?
 			</button>
 		{:else}
@@ -196,9 +238,30 @@
 					</div>
 				{/each}
 			</div>
+
+			<p>Answer Length: 
+				{#if lengthVisible}
+					{data.answerLength}
+				{:else}
+					<button type="button" on:click={() => {if(!browser)return;
+						if (data.guesses.filter(g => g != '').length == 0) {
+							alert('You must make at least one guess before you can see the answer length.');
+						} else {
+							lengthVisible = true;
+						}
+					}} id="button_length-show">show</button>
+				{/if}
+			</p>
 		{/if}
 	</div>
 </form>
+
+<p class="bottom-right">
+	Score: {score}
+	{#if score == 69}
+		 ( nice )
+	{/if}
+</p>
 
 {#if won}
 	<div
@@ -423,5 +486,24 @@
 		100% {
 			transform: translateX(0);
 		}
+	}
+
+	#button_length-show {
+		background: black;
+		border: none;
+		padding: 0.25rem 0.5rem;
+		cursor: pointer;
+	}
+
+	#button_length-show:hover {
+		background: var(--color-theme-1);
+		color: white;
+	}
+
+	.bottom-right {
+		position: absolute;
+		bottom: 0;
+		right: 2rem;
+		padding: 0.5rem;
 	}
 </style>
