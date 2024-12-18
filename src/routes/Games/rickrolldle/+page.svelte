@@ -127,7 +127,7 @@
 			{@const current = row === i}
 			<h2 class="visually-hidden">Row {row + 1}</h2>
 			<div class="row" class:current>
-				{#each Array.from(Array(10).keys()) as column (column)}
+				{#each Array.from(Array(data.answerLength).keys()) as column (column)}
 					{@const guess = current ? currentGuess : data.guesses[row]}
 					{@const answer = data.answers[row]?.[column]}
 					{@const value = guess?.[column] ?? ''}
@@ -375,11 +375,11 @@
 	}
 
 	.keyboard button[data-key='enter'] {
-		right: calc(50% + 3.5 * var(--size) + 0.8rem);
+		right: calc(50% + 3.5 * var (--size) + 0.8rem);
 	}
 
 	.keyboard button[data-key='backspace'] {
-		left: calc(50% + 3.5 * var(--size) + 0.8rem);
+		left: calc(50% + 3.5 * var (--size) + 0.8rem);
 	}
 
 	.keyboard button[data-key='enter']:disabled {
