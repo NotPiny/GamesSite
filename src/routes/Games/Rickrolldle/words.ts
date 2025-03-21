@@ -1,5 +1,5 @@
-/** The list of possible words */
-export const words = [
+export default [
+    "i",
     "were",
     "no",
     "strangers",
@@ -75,8 +75,3 @@ export const words = [
     "see",
     "ooh"
 ];
-
-/** The list of valid guesses, of which the list of possible words is a subset */
-export const allowed = new Set([
-	...words
-]);

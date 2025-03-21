@@ -1,53 +1,24 @@
 <script>
-	import Header from './Header.svelte';
-	import './styles.css';
+    import Header from "./Header.svelte";
 </script>
 
-<div class="app">
-	<Header />
+<svelte:head>
+    <style>
+        body {
+            min-height: 100%;
+            margin: 0;
 
-	<main>
-		<slot />
-	</main>
+            margin-top: 7em;
 
-	<footer>
-		<p>Made with 💜 by <a href="https://piny.dev/">Piny</a></p>
-	</footer>
-</div>
+            overflow-x: hidden;
 
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
+            font-family: 'Roboto', sans-serif;
 
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+            background-color: #1f1d1d;
+            color: #d9d9d9;
+        }
+    </style>
+</svelte:head>
 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
+<Header/>
+<slot/>

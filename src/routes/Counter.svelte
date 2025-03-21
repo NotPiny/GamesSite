@@ -1,106 +1,76 @@
-<script>
-	import { spring } from 'svelte/motion';
+<script lang="ts">
+    import { browser } from "$app/environment";
+    import { onMount } from "svelte";
+    import { writable } from "svelte/store"
 
-	let count = 0;
+    let count = writable(0);
+    let countRestored = false;
 
-	const displayed_count = spring();
-	$: displayed_count.set(count);
-	$: offset = modulo($displayed_count, 1);
+    count.subscribe(value => {
+        if (!browser || !countRestored) return;
+        localStorage.setItem('comp_counter_count', value as unknown as string);
+    });
 
-	/**
-	 * @param {number} n
-	 * @param {number} m
-	 */
-	function modulo(n, m) {
-		// handle negative numbers
-		return ((n % m) + m) % m;
-	}
+    onMount(() => {
+        count.set(Number(localStorage.getItem('comp_counter_count')) || 0);
+        countRestored = true;
+    });
 </script>
 
 <div class="counter">
-	<button on:click={() => (count -= 1)} aria-label="Decrease the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5" />
-		</svg>
-	</button>
-
-	<div class="counter-viewport">
-		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-			<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-			<strong>{Math.floor($displayed_count)}</strong>
-		</div>
-	</div>
-
-	<button on:click={() => (count += 1)} aria-label="Increase the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
-		</svg>
-	</button>
+    <button on:click={() => count.update(value => value - 1)}>-</button>
+    <h1>{ $count }</h1>
+    <button on:click={() => count.update(value => value + 1)}>+</button>
 </div>
 
 <style>
-	.counter {
-		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		margin: 1rem 0;
-	}
+    .counter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-	.counter button {
-		width: 2em;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 0;
-		background-color: transparent;
-		touch-action: manipulation;
-		font-size: 2rem;
-	}
+        width: 20em;
 
-	.counter button:hover {
-		background-color: var(--color-bg-1);
-	}
+        gap: 1em;
 
-	svg {
-		width: 25%;
-		height: 25%;
-	}
+        border: 1px solid white;
+        border-radius: 1em;
 
-	path {
-		vector-effect: non-scaling-stroke;
-		stroke-width: 2px;
-		stroke: #444;
-	}
+        background-color: rgba(255, 255, 255, 0.025);
+    }
 
-	.counter-viewport {
-		width: 8em;
-		height: 4em;
-		overflow: hidden;
-		text-align: center;
-		position: relative;
-	}
+    button {
+        height: 1em;
+        width: 1em;
 
-	.counter-viewport strong {
-		position: absolute;
-		display: flex;
-		width: 100%;
-		height: 100%;
-		font-weight: 400;
-		color: var(--color-theme-1);
-		font-size: 4rem;
-		align-items: center;
-		justify-content: center;
-	}
+        background: transparent;
+        border: none;
 
-	.counter-digits {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
+        color: #826ae3;
+        font-size: 5em;
+        font-weight: bold;
 
-	.hidden {
-		top: -100%;
-		user-select: none;
-	}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+    }
+
+    button:nth-child(1) {
+        border-top-left-radius: 1em;
+        border-bottom-left-radius: 1em;
+
+        /* Slightly elevate the dash */
+        margin-top: -.15em;
+    }
+
+    button:nth-child(3) {
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
 </style>

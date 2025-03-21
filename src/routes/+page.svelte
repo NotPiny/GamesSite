@@ -1,55 +1,71 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+    import Counter from "./Counter.svelte";
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+    <title>
+        Home
+    </title>
+    <meta name="description" content="A collection of games made by the one and only Piny">
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<div class="page">
+    <main>
+        <h1>Games</h1>
+        <ul>
+            <a href="/Games/Rickrolldle"><li>
+                <h4>Rickrolldle</h4>
+                <p>It's literally just wordle but with the lyrics of never gonna give you up</p>
+            </li></a>
+        </ul>
 
-		to the site<br/>or something
-	</h1>
-
-	<Counter />
-</section>
+        <h2>That damn counter everyone abuses</h2>
+        <Counter />
+    </main>
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
+    .page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-	h1 {
-		width: 100%;
-	}
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
+        width: 60em;
 
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+        margin-top: 2em;
+        padding: 1em;
+
+        border: 1px solid white;
+        border-radius: 1em;
+
+        background-color: #1f1f1f;
+    }
+
+    ul {
+        list-style-type: none;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+        gap: 1em;
+    }
+
+    li {
+        padding: 1em;
+
+        border: 1px solid white;
+        border-radius: 1em;
+
+        background-color: rgba(255, 255, 255, 0.025);
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
 </style>
