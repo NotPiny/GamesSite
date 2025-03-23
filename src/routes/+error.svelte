@@ -1,3 +1,7 @@
+<script>
+    import '$lib/assets/styles/basic.css';
+</script>
+
 <svelte:head>
     <meta http-equiv="refresh" content="5;url=/">
     <link rel="canonical" href="/">
@@ -11,27 +15,3 @@
         <p>You will redirected shortly...</p>
     </main>
 </div>
-
-<style>
-    .page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        width: 60em;
-
-        margin-top: 2em;
-        padding: 1em;
-
-        border: 1px solid white;
-        border-radius: 1em;
-
-        background-color: #1f1f1f;
-    }
-</style>

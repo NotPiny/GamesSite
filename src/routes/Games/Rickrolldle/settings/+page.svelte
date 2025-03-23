@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import Switch from "$lib/uiverse/Switch.svelte";
     import Input from "$lib/shoelace/Input.svelte";
+    import '$lib/assets/styles/basic.css';
 
     let options = {
         maxGuesses: 6,
@@ -52,29 +53,6 @@
 </div>
 
 <style>
-    .page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        width: 60em;
-
-        margin-top: 2em;
-        padding: 1em;
-
-        border: 1px solid white;
-        border-radius: 1em;
-
-        background-color: #1f1f1f;
-    }
-
-
     form {
         display: flex;
         flex-direction: column;

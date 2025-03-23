@@ -62,4 +62,10 @@
         height: 5em;
         width: 5em;
     }
+
+    @media (max-width: 600px) {
+        .header { /* Disable the header on mobile */
+            display: none;
+        }
+    }
 </style>

@@ -17,6 +17,12 @@
             background-color: #1f1d1d;
             color: #d9d9d9;
         }
+
+        @media screen and (max-width: 600px) {
+            body {
+                margin-top: 0;
+            }
+        }
     </style>
 </svelte:head>
 

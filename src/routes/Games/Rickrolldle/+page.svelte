@@ -3,6 +3,7 @@
     import { writable } from 'svelte/store';
     import type { Writable as tWritable } from 'svelte/store';
     import words from './words';
+    import '$lib/assets/styles/basic.css';
     import { browser } from '$app/environment';
 
     const maxWordLength = words.sort((a, b) => b.length - a.length)[0].length;
@@ -222,28 +223,6 @@
 </div>
 
 <style>
-    .page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        width: 60em;
-
-        margin-top: 2em;
-        padding: 1em;
-
-        border: 1px solid white;
-        border-radius: 1em;
-
-        background-color: #1f1f1f;
-    }
-
     .play {
         display: flex;
         flex-direction: column;
@@ -338,5 +317,35 @@
         padding: 0.5em;
         border: 1px solid white;
         border-radius: 0.25em;
+    }
+
+    @media screen and (max-width: 600px) {
+        .guess span {
+            width: auto;
+            height: auto;
+
+            padding: 0.25em;
+
+            font-size: 1.5em;
+        }
+
+        .guess span {
+            background-color: transparent !important;
+
+            text-decoration: underline;
+            text-decoration-thickness: 0.1em;
+        }
+
+        .guess span.wrong {
+            text-decoration-color: #ff0000;
+        }
+
+        .guess span.word {
+            text-decoration-color: #ffff00;
+        }
+
+        .guess span.place {
+            text-decoration-color: #00ff00;
+        }
     }
 </style>
