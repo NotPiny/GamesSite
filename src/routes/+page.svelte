@@ -19,6 +19,11 @@
             name: "Rickrolldle",
             description: "It's literally just wordle but with the lyrics of never gonna give you up",
             href: "/Games/Rickrolldle"
+        },
+        {
+            name: "Wordsle",
+            description: "Wordle but the answer is always 'words'",
+            href: "/Games/Wordsle"
         }
     ]
 </script>
