@@ -24,6 +24,11 @@
             name: "Wordsle",
             description: "Wordle but the answer is always 'words'",
             href: "/Games/Wordsle"
+        },
+        {
+            name: "Jobhavle",
+            description: "Wordle but the answer is always 'jobhaver'",
+            href: "/Games/Jobhavle"
         }
     ]
 </script>
